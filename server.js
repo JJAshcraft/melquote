@@ -15,6 +15,8 @@ MongoClient.connect('mongodb://josh:josh@ds247698.mlab.com:47698/onepositivethou
 })
 app.set('view engine', 'ejs')
 app.use (bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use(express.static('public'))
 
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/index.html');
@@ -33,4 +35,37 @@ app.post ('/quotes', (req, res) => {
     console.log('saved to database')
     res.redirect('/')
   })
+})
+
+app.put('/quotes', (req, res) => {
+  db.collection('quotes').findOneAndUpdate(
+    {
+      name: 'Yoda'
+    },
+    {
+      $set: {
+        name: req.body.name,
+        quote: req.body.quote
+      }
+    },
+    {
+      sort: {_id: -1},
+      upsert: false
+    }, (err, result) => {
+      if (err) return res.send(err)
+      res.json(result)
+    }
+  )
+})
+
+app.delete('/quotes', (req, res) => {
+  db.collection('quotes').findOneAndDelete(
+    {
+      name: req.body.name
+    },
+    (err, result) => {
+      if (err) return res.send(500, err)
+      res.send({message: "A Vader Quote was DELETED."})
+    }
+  )
 })

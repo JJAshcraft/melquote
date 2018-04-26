@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>my app</title>
+
 </head>
 <body>
+
   <ul class="quotes">
     <% for(var i=0; i<quotes.length; i++) {%>
   <li class="quote">
@@ -20,5 +22,15 @@
     <input type="text" placeholder="quote" name="quote">
     <button type="submit">Submit</button>
   </form>
+  <div>
+    <h2>Replace last quote with a Darth Vader quote</h2>
+    <button id="update">Darth Vader invades</button>
+  </div>
+  <div>
+    <h2>Delete Vader Quote</h2>
+    <button id="delete">But I'm Your Father!</button>
+  </div>
+  <script src="main.js">
+  </script>
 </body>
 </html>
